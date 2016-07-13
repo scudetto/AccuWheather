@@ -9,6 +9,7 @@ ValidScreen{
         width: 300
         height: 50
         visible: true
+        opacity: 100
 
 
         Rectangle{
@@ -54,6 +55,11 @@ ValidScreen{
                     target: textButton
                     text: "Validating"
                 }
+
+                PropertyChanges{
+                   target: textInput
+                   text: "Validating..."
+                }
             },
             State{
                  name: "ValidateOK"
@@ -61,6 +67,11 @@ ValidScreen{
                  PropertyChanges{
                     target: validMain
                     visible: false
+                 }
+
+                 PropertyChanges{
+                    target: textInput
+                    text: "Validatio with appKey OK"
                  }
            },
 

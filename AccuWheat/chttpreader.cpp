@@ -42,9 +42,16 @@ bool CHttpReader::isAppKeyValid()
     return m_bAppValid;
 }
 
+QNetworkReply *CHttpReader::getReply()
+{
+    return m_reply;
+}
+
 void CHttpReader::validateAppKey(QNetworkReply *reply)
 {
-    if(!(reply->error() == QNetworkReply::NoError))
+    m_reply = reply;
+
+    if(!(m_reply->error() == QNetworkReply::NoError))
     {
         m_bAppValid = false;
         emit appValidFailed();

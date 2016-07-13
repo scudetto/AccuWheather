@@ -20,6 +20,7 @@ public:
     QNetworkAccessManager& getNAM();
     void setAppKey(QString appKey);
     Q_INVOKABLE bool isAppKeyValid();
+    QNetworkReply* getReply();
 
 public slots:
     void validateAppKey(QNetworkReply*);
