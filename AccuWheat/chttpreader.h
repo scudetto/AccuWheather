@@ -26,6 +26,7 @@ public slots:
 
 signals:
     void appValidOk();
+    void appValidFailed();
 
 private:
     CHttpReader(QObject* parent);

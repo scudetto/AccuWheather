@@ -2,11 +2,14 @@ import QtQuick 2.0
 import Valid 1.0
 
 ValidScreen{
+
     Item{
+
         id: validMain
         width: 300
         height: 50
         visible: true
+
 
         Rectangle{
             anchors.fill: parent
@@ -54,10 +57,19 @@ ValidScreen{
             },
             State{
                  name: "ValidateOK"
-                 when: (isValid != false)
+                 when: (isValid == 1)
                  PropertyChanges{
                     target: validMain
                     visible: false
+                 }
+           },
+
+           State{
+                 name: "ValidateFailed"
+                 when: (isValid == 0)
+                 PropertyChanges{
+                    target: textInput
+                    text: "ValidationFailed, please provide proper appKey"
                  }
            }
 

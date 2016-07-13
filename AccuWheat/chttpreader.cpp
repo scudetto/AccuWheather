@@ -47,15 +47,11 @@ void CHttpReader::validateAppKey(QNetworkReply *reply)
     if(!(reply->error() == QNetworkReply::NoError))
     {
         m_bAppValid = false;
-        qDebug()<<"AppKeyInvalid, please provide proper appKey";
-        std::string appKey;
-        std::cin>>appKey;
-        setAppKey(QString::fromStdString(appKey));
+        emit appValidFailed();
     }
     else
     {
         m_bAppValid = true;
-        qDebug()<<"AppKeyOK"<<reply->readAll();
         emit appValidOk();
     }
 

@@ -1,8 +1,9 @@
 #include "validatescreen.h"
 
-ValidateScreen::ValidateScreen(): m_isValid(false)
+ValidateScreen::ValidateScreen(): m_isValid(-1)
 {
     connect(&CHttpReader::getInstance(),SIGNAL(appValidOk()),this,SLOT(onValidOk()));
+    connect(&CHttpReader::getInstance(),SIGNAL(appValidFailed()),this,SLOT(onValidFailed()));
 }
 
 QString ValidateScreen::keyId()
@@ -16,18 +17,24 @@ void ValidateScreen::setKeyId(QString str)
     CHttpReader::getInstance().setAppKey(m_keyId);
 }
 
-bool ValidateScreen::isValid()
+int ValidateScreen::isValid()
 {
     return m_isValid;
 }
 
-void ValidateScreen::setIsValid(bool valid)
+void ValidateScreen::setIsValid(int valid)
 {
     m_isValid = valid;
 }
 
 void ValidateScreen::onValidOk()
 {
-    setIsValid(true);
+    setIsValid(1);
+    emit isValidChanged();
+}
+
+void ValidateScreen::onValidFailed()
+{
+    setIsValid(0);
     emit isValidChanged();
 }
