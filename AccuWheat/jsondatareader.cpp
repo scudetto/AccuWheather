@@ -3,7 +3,7 @@
 
 JsonDataReader::JsonDataReader()
 {
-
+    saveData();
 }
 
 void JsonDataReader::saveData()
@@ -17,4 +17,9 @@ void JsonDataReader::saveData()
         m_document = QJsonDocument::fromJson(byteArray);
     }
 
+}
+
+QJsonDocument JsonDataReader::getDocument() const
+{
+    return m_document;
 }

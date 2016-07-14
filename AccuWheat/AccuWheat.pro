@@ -6,7 +6,8 @@ CONFIG += c++11
 SOURCES += main.cpp \
     jsondatareader.cpp \
     chttpreader.cpp \
-    validatescreen.cpp
+    validatescreen.cpp \
+    wheatherview.cpp
 
 RESOURCES += qml.qrc
 
@@ -20,4 +21,5 @@ HEADERS += \
     datareader.h \
     jsondatareader.h \
     chttpreader.h \
-    validatescreen.h
+    validatescreen.h \
+    wheatherview.h

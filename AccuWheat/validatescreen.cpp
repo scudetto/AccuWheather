@@ -1,4 +1,5 @@
 #include "validatescreen.h"
+#include "wheatherview.h"
 
 ValidateScreen::ValidateScreen(): m_isValid(-1)
 {
@@ -30,6 +31,7 @@ void ValidateScreen::setIsValid(int valid)
 void ValidateScreen::onValidOk()
 {
     setIsValid(1);
+    WheatherView* view = new WheatherView();
     emit isValidChanged();
 }
 
