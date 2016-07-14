@@ -1,4 +1,4 @@
-import QtQuick 2.7
+import QtQuick 2.1
 import QtQuick.Window 2.2
 
 //import Valid 1.0

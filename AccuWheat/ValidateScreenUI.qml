@@ -42,7 +42,8 @@ ValidScreen{
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                  setKeyId(textInput.text);
+                  //setKeyId(textInput.text);
+                  setKeyId("qEqpAfbLGktQDq4tqXH8q2P0lZN6bnbo");//temp solution
                   validMain.state = "Validating"
                 }
             }
