@@ -12,6 +12,15 @@ ValidScreen{
         opacity: 100
 
 
+        property bool timerRunning: false
+
+        Timer{
+            id: mainTimer
+            interval: 1000
+            running: validMain.timerRunning
+            onTriggered: validMain.state = "Location"
+        }
+
         Rectangle{
             anchors.fill: parent
             border.width: 2
@@ -43,8 +52,15 @@ ValidScreen{
                 anchors.fill: parent
                 onClicked: {
                   //setKeyId(textInput.text);
-                  setKeyId("qEqpAfbLGktQDq4tqXH8q2P0lZN6bnbo");//temp solution
-                  validMain.state = "Validating"
+                  if(validMain.state == "location")
+                  {
+
+                  }
+                  else
+                  {
+                      setKeyId("qEqpAfbLGktQDq4tqXH8q2P0lZN6bnbo");//temp solution
+                      validMain.state = "Validating"
+                  }
                 }
             }
         }
@@ -65,14 +81,20 @@ ValidScreen{
             State{
                  name: "ValidateOK"
                  when: (isValid == 1)
+
                  PropertyChanges{
-                    target: validMain
-                    visible: false
+                     target: validMain
+                     timerRunning: true
                  }
 
                  PropertyChanges{
                     target: textInput
-                    text: "Validatio with appKey OK"
+                    text: "Validation with appKey OK - redirecting..."
+                 }
+
+                 PropertyChanges {
+                     target: setButton
+                     visible: false
                  }
            },
 
@@ -83,7 +105,15 @@ ValidScreen{
                     target: textInput
                     text: "ValidationFailed, please provide proper appKey"
                  }
-           }
+           },
+
+            State{
+                  name: "Location"
+                  PropertyChanges{
+                     target: textInput
+                     text: "Please provide location"
+                  }
+            }
 
         ]
     }
