@@ -7,6 +7,7 @@
 WheatherView::WheatherView()
 {
     m_reader = new JsonDataReader;
+    /*
     m_doc = m_reader->getDocument();
 
     QJsonObject obj = m_doc.object();
@@ -26,7 +27,7 @@ WheatherView::WheatherView()
     {
         qDebug()<<"key = "<<it.key()<<" val= "<<it.value().type();
     }
-
+    */
 
 }
 
@@ -34,5 +35,21 @@ WheatherView::~WheatherView()
 {
     delete m_reader;
     m_reader = 0;
+}
+
+void WheatherView::printText()
+{
+    m_doc = m_reader->getDocument();
+
+    QJsonArray array = m_doc.array();
+
+    QJsonObject obj2 = array[0].toObject();
+
+    QVariantMap map = obj2.toVariantMap();
+    //qDebug()<<"obj size = " + map<<" doc "<<m_doc.isArray()<<endl;
+    for(QVariantMap::const_iterator it=map.begin(); it!=map.end();++it)
+    {
+        qDebug()<<"key = "<<it.key()<<" val= "<<it.value().type();
+    }
 }
 

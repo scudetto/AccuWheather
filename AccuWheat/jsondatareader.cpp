@@ -16,10 +16,17 @@ void JsonDataReader::saveData()
     {
         m_document = QJsonDocument::fromJson(byteArray);
     }
+    qDebug()<<"save data"<<endl;
 
 }
 
-QJsonDocument JsonDataReader::getDocument() const
+QJsonDocument JsonDataReader::getDocument()
 {
+    saveData();
     return m_document;
+}
+
+JsonDataReader::~JsonDataReader()
+{
+
 }

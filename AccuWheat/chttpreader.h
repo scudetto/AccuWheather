@@ -21,6 +21,8 @@ public:
     void setAppKey(QString appKey);
     Q_INVOKABLE bool isAppKeyValid();
     QNetworkReply* getReply();
+    void checkAppKey();
+    void getLocation(QString loc);
 
 public slots:
     void validateAppKey(QNetworkReply*);

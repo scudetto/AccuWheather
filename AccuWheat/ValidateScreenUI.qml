@@ -11,7 +11,6 @@ ValidScreen{
         visible: true
         opacity: 100
 
-
         property bool timerRunning: false
 
         Timer{
@@ -21,7 +20,12 @@ ValidScreen{
             onTriggered: validMain.state = "Location"
         }
 
+        Loader{
+            id: viewLoader
+        }
+
         Rectangle{
+            id: textRect
             anchors.fill: parent
             border.width: 2
 
@@ -51,13 +55,16 @@ ValidScreen{
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                  //setKeyId(textInput.text);
-                  if(validMain.state == "location")
+                  if(validMain.state == "Location")
                   {
-
+                      setLocation(textInput.text);
+                      console.log("location = " + location)
+                      validMain.state = "LocationOK"
+                      viewLoader.source = "WheatherViewUI.qml"
                   }
                   else
                   {
+                      //setKeyId(textInput.text);
                       setKeyId("qEqpAfbLGktQDq4tqXH8q2P0lZN6bnbo");//temp solution
                       validMain.state = "Validating"
                   }
@@ -112,6 +119,19 @@ ValidScreen{
                   PropertyChanges{
                      target: textInput
                      text: "Please provide location"
+                  }
+            },
+
+            State{
+                  name: "LocationOK"
+                  PropertyChanges{
+                     target: setButton
+                     visible: false
+                  }
+
+                  PropertyChanges{
+                     target: textRect
+                     visible: false
                   }
             }
 

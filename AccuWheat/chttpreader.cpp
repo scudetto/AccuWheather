@@ -34,7 +34,7 @@ QNetworkAccessManager &CHttpReader::getNAM()
 void CHttpReader::setAppKey(QString appKey)
 {
     m_appKey = appKey;
-    m_manager->get(QNetworkRequest(QUrl("http://dataservice.accuweather.com/forecasts/v1/daily/1day/41?apikey=" + m_appKey)));
+    checkAppKey();
 }
 
 bool CHttpReader::isAppKeyValid()
@@ -45,6 +45,16 @@ bool CHttpReader::isAppKeyValid()
 QNetworkReply *CHttpReader::getReply()
 {
     return m_reply;
+}
+
+void CHttpReader::checkAppKey()
+{
+    m_manager->get(QNetworkRequest(QUrl("http://dataservice.accuweather.com/forecasts/v1/daily/1day/41?apikey=" + m_appKey)));
+}
+
+void CHttpReader::getLocation(QString loc)
+{
+    m_manager->get(QNetworkRequest(QUrl("http://dataservice.accuweather.com/locations/v1/search?apikey=" + m_appKey + "&q=" + loc)));
 }
 
 void CHttpReader::validateAppKey(QNetworkReply *reply)

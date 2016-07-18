@@ -10,6 +10,7 @@ class ValidateScreen : public QQuickItem
     Q_OBJECT
     Q_PROPERTY(QString keyId READ keyId WRITE setKeyId NOTIFY keyIdChanged)
     Q_PROPERTY(int isValid READ isValid WRITE setIsValid NOTIFY isValidChanged)
+    Q_PROPERTY(QString location READ location WRITE setLocation NOTIFY locationChanged)
 public:
     ValidateScreen();
 
@@ -19,10 +20,14 @@ public:
     Q_INVOKABLE int isValid();
     void setIsValid(int);
 
+    Q_INVOKABLE void setLocation(QString loc);
+    Q_INVOKABLE QString location();
+
 signals:
     void keyIdChanged();
     void valid();
     void isValidChanged();
+    void locationChanged();
 
 public slots:
     void onValidOk();
@@ -31,6 +36,7 @@ public slots:
 private:
     QString m_keyId;
     int m_isValid;
+    QString m_location;
 };
 
 #endif // VALIDATESCREEN_H

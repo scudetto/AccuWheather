@@ -11,7 +11,7 @@ public:
     WheatherView();
     ~WheatherView();
 
-
+    Q_INVOKABLE void printText();
 
 signals:
 

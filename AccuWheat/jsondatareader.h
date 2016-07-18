@@ -10,7 +10,8 @@ class JsonDataReader : public CDataReader
 public:
     JsonDataReader();
     virtual void saveData();
-    QJsonDocument getDocument() const;
+    QJsonDocument getDocument();
+    ~JsonDataReader();
 
 private:
     QJsonDocument m_document;

@@ -1,7 +1,7 @@
 #include "validatescreen.h"
 #include "wheatherview.h"
 
-ValidateScreen::ValidateScreen(): m_isValid(-1)
+ValidateScreen::ValidateScreen(): m_isValid(-1), m_location()
 {
     connect(&CHttpReader::getInstance(),SIGNAL(appValidOk()),this,SLOT(onValidOk()));
     connect(&CHttpReader::getInstance(),SIGNAL(appValidFailed()),this,SLOT(onValidFailed()));
@@ -28,11 +28,25 @@ void ValidateScreen::setIsValid(int valid)
     m_isValid = valid;
 }
 
+void ValidateScreen::setLocation(QString loc)
+{
+    m_location = loc;
+    CHttpReader::getInstance().getLocation(loc);
+    emit locationChanged();
+}
+
+QString ValidateScreen::location()
+{
+    return m_location;
+}
+
 void ValidateScreen::onValidOk()
 {
-    setIsValid(1);
-    WheatherView* view = new WheatherView();
-    emit isValidChanged();
+    if(m_location.isEmpty())
+    {
+        setIsValid(1);
+        emit isValidChanged();
+    }
 }
 
 void ValidateScreen::onValidFailed()
