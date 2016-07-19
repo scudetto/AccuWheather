@@ -3,8 +3,8 @@
 
 ValidateScreen::ValidateScreen(): m_isValid(-1), m_location()
 {
-    connect(&CHttpReader::getInstance(),SIGNAL(appValidOk()),this,SLOT(onValidOk()));
-    connect(&CHttpReader::getInstance(),SIGNAL(appValidFailed()),this,SLOT(onValidFailed()));
+    connect(&CHttpReader::getInstance(),SIGNAL(appValidOk(int)),this,SLOT(onValidOk(int)));
+    connect(&CHttpReader::getInstance(),SIGNAL(appValidFailed(int)),this,SLOT(onValidFailed(int)));
 }
 
 QString ValidateScreen::keyId()
@@ -40,17 +40,33 @@ QString ValidateScreen::location()
     return m_location;
 }
 
-void ValidateScreen::onValidOk()
+void ValidateScreen::setRequestType(int type)
 {
-    if(m_location.isEmpty())
-    {
-        setIsValid(1);
-        emit isValidChanged();
-    }
+    m_requestType = type;
+    emit requestTypeChanged();
 }
 
-void ValidateScreen::onValidFailed()
+int ValidateScreen::requestType()
 {
+    return m_requestType;
+}
+
+void ValidateScreen::onValidOk(int reqType)
+{
+    setRequestType(reqType);
+    setIsValid(1);
+    emit isValidChanged();
+
+    if(m_requestType && m_isValid)
+    {
+        emit validLocation();
+    }
+
+}
+
+void ValidateScreen::onValidFailed(int reqType)
+{
+    setRequestType(reqType);
     setIsValid(0);
     emit isValidChanged();
 }

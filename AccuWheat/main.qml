@@ -4,22 +4,27 @@ import QtQuick.Window 2.2
 //import Valid 1.0
 
 Window {
-    //id: mainWindow
+    id: mainWindow
     visible: true
     width: 640
     height: 480
     title: qsTr("Hello World")
 
-
-    ValidateScreenUI{
+    /*ValidateScreenUI{
         id: valid
         anchors.centerIn: parent.center
+    }*/
+
+    Loader{
+        id: loader
+        source: "ValidateScreenUI.qml"
+        property bool valid: item !== null
     }
 
-    /*MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            Qt.quit();
-        }
-    }*/
+    Connections{
+        ignoreUnknownSignals: true
+        target: loader.valid ? loader.item : null
+        onValidLocation: loader.source = "WheatherViewUI.qml"
+    }
+
 }

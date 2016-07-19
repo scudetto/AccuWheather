@@ -49,11 +49,13 @@ QNetworkReply *CHttpReader::getReply()
 
 void CHttpReader::checkAppKey()
 {
+    m_reqType = 0;
     m_manager->get(QNetworkRequest(QUrl("http://dataservice.accuweather.com/forecasts/v1/daily/1day/41?apikey=" + m_appKey)));
 }
 
 void CHttpReader::getLocation(QString loc)
 {
+    m_reqType = 1;
     m_manager->get(QNetworkRequest(QUrl("http://dataservice.accuweather.com/locations/v1/search?apikey=" + m_appKey + "&q=" + loc)));
 }
 
@@ -64,12 +66,12 @@ void CHttpReader::validateAppKey(QNetworkReply *reply)
     if(!(m_reply->error() == QNetworkReply::NoError))
     {
         m_bAppValid = false;
-        emit appValidFailed();
+        emit appValidFailed(m_reqType);
     }
     else
     {
         m_bAppValid = true;
-        emit appValidOk();
+        emit appValidOk(m_reqType);
     }
 
 }

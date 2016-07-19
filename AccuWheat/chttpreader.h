@@ -28,8 +28,8 @@ public slots:
     void validateAppKey(QNetworkReply*);
 
 signals:
-    void appValidOk();
-    void appValidFailed();
+    void appValidOk(int);
+    void appValidFailed(int);
 
 private:
     CHttpReader(QObject* parent);
@@ -39,6 +39,7 @@ private:
     QString m_appKey;
     QNetworkReply* m_reply;
     bool m_bAppValid;
+    int m_reqType;
 };
 
 #endif // CHTTPREADER_H

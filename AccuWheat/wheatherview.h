@@ -20,6 +20,7 @@ public slots:
 private:
     JsonDataReader* m_reader;
     QJsonDocument m_doc;
+    QString m_locKey;
 };
 
 #endif // WHEATHERVIEW_H

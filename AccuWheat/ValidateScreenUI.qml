@@ -10,19 +10,7 @@ ValidScreen{
         height: 50
         visible: true
         opacity: 100
-
-        property bool timerRunning: false
-
-        Timer{
-            id: mainTimer
-            interval: 1000
-            running: validMain.timerRunning
-            onTriggered: validMain.state = "Location"
-        }
-
-        Loader{
-            id: viewLoader
-        }
+        state: "Begin"
 
         Rectangle{
             id: textRect
@@ -34,7 +22,6 @@ ValidScreen{
                 y: 10
                 x: 10
                 color: "black"
-                text: "Please provide appKey"
             }
         }
 
@@ -55,83 +42,54 @@ ValidScreen{
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                  if(validMain.state == "Location")
-                  {
-                      setLocation(textInput.text);
-                      console.log("location = " + location)
-                      validMain.state = "LocationOK"
-                      viewLoader.source = "WheatherViewUI.qml"
-                  }
-                  else
-                  {
-                      //setKeyId(textInput.text);
-                      setKeyId("qEqpAfbLGktQDq4tqXH8q2P0lZN6bnbo");//temp solution
-                      validMain.state = "Validating"
-                  }
+                    switch(validMain.state)
+                    {
+                        case "ValidateAppKeyOK":
+                            setLocation(textInput.text);
+                            break;
+                        case "ValidateAppKeyFailed":
+                            setKeyId("qEqpAfbLGktQDq4tqXH8q2P0lZN6bnbo");
+                            break;
+                        case "Begin":
+                            setKeyId("qEqpAfbLGktQDq4tqXH8q2P0lZN6bnbo");
+                            break;
+                    }
                 }
             }
         }
 
         states:[
-            State{
-                name: "Validating"
-                PropertyChanges {
-                    target: textButton
-                    text: "Validating"
-                }
 
-                PropertyChanges{
-                   target: textInput
-                   text: "Validating..."
-                }
+            State{
+                  name: "Begin"
+                  PropertyChanges{
+                     target: textInput
+                     text: "Please provide proper appKey"
+                  }
             },
-            State{
-                 name: "ValidateOK"
-                 when: (isValid == 1)
-
-                 PropertyChanges{
-                     target: validMain
-                     timerRunning: true
-                 }
-
-                 PropertyChanges{
-                    target: textInput
-                    text: "Validation with appKey OK - redirecting..."
-                 }
-
-                 PropertyChanges {
-                     target: setButton
-                     visible: false
-                 }
-           },
-
            State{
-                 name: "ValidateFailed"
-                 when: (isValid == 0)
+                 name: "ValidateAppKeyFailed"
+                 when: (isValid == 0 && requestType == 0)
                  PropertyChanges{
                     target: textInput
                     text: "ValidationFailed, please provide proper appKey"
                  }
            },
-
             State{
-                  name: "Location"
-                  PropertyChanges{
-                     target: textInput
-                     text: "Please provide location"
-                  }
+                name: "ValidateLocationFailed"
+                when: (isValid == 0 && requestType == 1)
+                PropertyChanges{
+                   target: textInput
+                   text: "ValidationFailed, please provide proper location"
+                }
             },
 
             State{
-                  name: "LocationOK"
+                  when: (isValid == 1 && requestType == 0)
+                  name: "ValidateAppKeyOK"
                   PropertyChanges{
-                     target: setButton
-                     visible: false
-                  }
-
-                  PropertyChanges{
-                     target: textRect
-                     visible: false
+                     target: textInput
+                     text: "Please provide proper location"
                   }
             }
 

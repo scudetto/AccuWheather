@@ -45,11 +45,6 @@ void WheatherView::printText()
 
     QJsonObject obj2 = array[0].toObject();
 
-    QVariantMap map = obj2.toVariantMap();
-    //qDebug()<<"obj size = " + map<<" doc "<<m_doc.isArray()<<endl;
-    for(QVariantMap::const_iterator it=map.begin(); it!=map.end();++it)
-    {
-        qDebug()<<"key = "<<it.key()<<" val= "<<it.value().type();
-    }
+    m_locKey = obj2.take("Key").toString();
 }
 
