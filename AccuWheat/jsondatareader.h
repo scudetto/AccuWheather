@@ -11,7 +11,7 @@ public:
     JsonDataReader();
     virtual void saveData();
     QJsonDocument getDocument();
-    ~JsonDataReader();
+    virtual ~JsonDataReader();
 
 private:
     QJsonDocument m_document;

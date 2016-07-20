@@ -1,4 +1,6 @@
 #include "wheatherview.h"
+#include "chttpreader.h"
+
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QJsonValue>
@@ -46,5 +48,30 @@ void WheatherView::printText()
     QJsonObject obj2 = array[0].toObject();
 
     m_locKey = obj2.take("Key").toString();
+    qDebug()<<"lockey " + m_locKey;
+    emit locKeyChanged();
+    setLocStr(CHttpReader::getInstance().getLocationStr());
+}
+
+QString WheatherView::locKey()
+{
+    return m_locKey;
+}
+
+void WheatherView::setLocKey(QString key)
+{
+    m_locKey = key;
+    emit locKeyChanged();
+}
+
+void WheatherView::setLocStr(QString str)
+{
+    m_locStr = str;
+    emit locStrChanged();
+}
+
+QString WheatherView::locStr()
+{
+    return m_locStr;
 }
 

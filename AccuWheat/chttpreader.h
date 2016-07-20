@@ -23,6 +23,7 @@ public:
     QNetworkReply* getReply();
     void checkAppKey();
     void getLocation(QString loc);
+    QString getLocationStr();
 
 public slots:
     void validateAppKey(QNetworkReply*);
@@ -40,6 +41,7 @@ private:
     QNetworkReply* m_reply;
     bool m_bAppValid;
     int m_reqType;
+    QString m_locationStr;
 };
 
 #endif // CHTTPREADER_H

@@ -56,7 +56,13 @@ void CHttpReader::checkAppKey()
 void CHttpReader::getLocation(QString loc)
 {
     m_reqType = 1;
+    m_locationStr = loc;
     m_manager->get(QNetworkRequest(QUrl("http://dataservice.accuweather.com/locations/v1/search?apikey=" + m_appKey + "&q=" + loc)));
+}
+
+QString CHttpReader::getLocationStr()
+{
+    return m_locationStr;
 }
 
 void CHttpReader::validateAppKey(QNetworkReply *reply)

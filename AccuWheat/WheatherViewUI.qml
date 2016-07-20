@@ -12,15 +12,9 @@ WheatherView{
             color: "red"
 
             Text{
+                id: txtIn
                 anchors.fill: parent
-                text: "some"
             }
-            MouseArea{
-                anchors.fill: parent
-                onClicked: printText()
-            }
-
         }
-
     }
 }

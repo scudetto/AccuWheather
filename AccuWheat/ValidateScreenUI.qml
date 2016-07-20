@@ -12,6 +12,12 @@ ValidScreen{
         opacity: 100
         state: "Begin"
 
+        focus: true
+        Keys.onReturnPressed:
+        {
+            console.log("enter");
+        }
+
         Rectangle{
             id: textRect
             anchors.fill: parent
@@ -22,6 +28,7 @@ ValidScreen{
                 y: 10
                 x: 10
                 color: "black"
+                focus: false
             }
         }
 
@@ -37,6 +44,22 @@ ValidScreen{
                 id: textButton
                 anchors.centerIn: parent
                 text: "Set"
+
+                /*Keys.onEnterPressed: {
+                    console.log("pressed")
+                    switch(validMain.state)
+                    {
+                        case "ValidateAppKeyOK":
+                            setLocation(textInput.text);
+                            break;
+                        case "ValidateAppKeyFailed":
+                            setKeyId("qEqpAfbLGktQDq4tqXH8q2P0lZN6bnbo");
+                            break;
+                        case "Begin":
+                            setKeyId("qEqpAfbLGktQDq4tqXH8q2P0lZN6bnbo");
+                            break;
+                    }
+                }*/
             }
 
             MouseArea{
@@ -56,6 +79,7 @@ ValidScreen{
                     }
                 }
             }
+
         }
 
         states:[
